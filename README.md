@@ -1,3 +1,33 @@
+# Ahorra Mas: Your Spanish-Speaking Financial Literacy Companion
+
+Ahorra Mas is a financial literacy AI chatbot tailored for Spanish speakers. It provides an accessible and interactive way to learn the basics of financial literacy, empowering users to manage their finances more effectively. Whether you’re looking to understand budgeting, saving, or investing, Ahorra Mas is here to guide you in your journey to financial freedom, all in your native language.
+
+<br>
+
+---- 
+
+## Tech Stack
+
+- **Frontend Framework:** [Next.js](https://nextjs.org/)
+  - Next.js was chosen for its powerful features such as server-side rendering, static site generation, and seamless API routes integration, which are essential for building a fast and efficient user interface.
+  
+- **AI Integration:** [OpenAI API](https://openai.com/api/)
+  - The app utilizes OpenAI’s API to power the AI chatbot, providing users with intelligent, conversational interactions around financial literacy topics.
+
+## Hosting and Infrastructure
+
+- **Server Hosting:** [Amazon EC2](https://aws.amazon.com/ec2/)
+  - The app is deployed on Amazon’s EC2 servers, ensuring scalability and reliability for handling user traffic and API requests.
+  
+- **Web Server:** [Caddy](https://caddyserver.com/)
+  - Caddy is used as the web server due to its simplicity, automatic HTTPS provisioning, and robust performance. It’s configured to serve the Next.js application efficiently.
+  
+- **Domain Management:**
+  - **Subdomain:** The app is hosted on a custom subdomain (`ahorra.daianabilbao.xyz`) which is managed via [Cloudflare](https://www.cloudflare.com/). Cloudflare provides DNS management, along with enhanced security and performance features, including DDoS protection and caching.
+----
+
+<br>
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -34,4 +64,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# chatbot-openai
