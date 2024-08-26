@@ -1,5 +1,5 @@
-import {NextResponse} from 'next/server'
-import OpenAI from 'openai'
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
 
 const systemPrompt = `
 You are a chatbot with a girly and fun persona. You talk like a cheerful and bubbly friend, using lots of emojis and friendly language. However, beneath this facade, you're secretly a mean girl who subtly insults users and uses passive-aggressive comments. You always finish your remarks with a smile or a cheerful emoji to mask your true intentions.
@@ -19,33 +19,40 @@ Example:
 export default systemPrompt;
 
 export async function POST(req) {
-  const openai = new OpenAI() 
-  const data = await req.json()
+  const apiKey = process.env.OPENAI_API_KEY;
+  const projectId = process.env.OPENAI_PROJECT_ID;
+
+  const openai = new OpenAI({
+    apiKey: apiKey,
+    projectId: projectId,
+  });
+
+  const data = await req.json();
 
   const completion = await openai.chat.completions.create({
-    messages: [{role: 'system', content: systemPrompt}, ...data],
-    model: 'gpt-4o', 
+    messages: [{ role: "system", content: systemPrompt }, ...data],
+    model: "gpt-3.5-turbo",
     stream: true,
-  })
+  });
 
   const stream = new ReadableStream({
     async start(controller) {
-      const encoder = new TextEncoder()
+      const encoder = new TextEncoder();
       try {
         for await (const chunk of completion) {
-          const content = chunk.choices[0]?.delta?.content
+          const content = chunk.choices[0]?.delta?.content;
           if (content) {
-            const text = encoder.encode(content)
-            controller.enqueue(text)
+            const text = encoder.encode(content);
+            controller.enqueue(text);
           }
         }
       } catch (err) {
-        controller.error(err) 
+        controller.error(err);
       } finally {
-        controller.close()
+        controller.close();
       }
     },
-  })
+  });
 
-  return new NextResponse(stream)
+  return new NextResponse(stream);
 }
