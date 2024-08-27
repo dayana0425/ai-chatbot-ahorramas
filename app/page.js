@@ -195,14 +195,15 @@ export default function Home() {
                 }
                 color="white"
                 borderRadius={12}
-                p={3}
+                p={4}
                 sx={{
                   boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
                   transition: "transform 0.3s ease",
-                  marginLeft: 1,
-                  marginRight: 1,
-                  marginTop: 1,
-                  padding: "16px",
+                  marginLeft: 2,
+                  marginRight: 2,
+                  marginTop: 2,
+                  padding: "24px",
+
                   "&:hover": {
                     transform: "scale(1.02)",
                   },
