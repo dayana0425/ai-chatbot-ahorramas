@@ -31,7 +31,7 @@ https://www.figma.com/board/tx5xk9vayeS771NDfx3i2h/ai-chatbot-plan?node-id=0-1&t
   - Caddy is used as the web server due to its simplicity, automatic HTTPS provisioning, and robust performance. It’s configured to serve the Next.js application efficiently.
   
 - **Domain Management:**
-  - **Subdomain:** The app is hosted on a custom subdomain (`ahorra.daianabilbao.xyz`) which is managed via [Cloudflare](https://www.cloudflare.com/). Cloudflare provides DNS management, along with enhanced security and performance features, including DDoS protection and caching.
+  - **Subdomain:** The app is hosted on a custom subdomain (`ahorramas.daianabilbao.xyz`) which is managed via [Cloudflare](https://www.cloudflare.com/). Cloudflare provides DNS management, along with enhanced security and performance features, including DDoS protection and caching.
 ----
 
 <br>
