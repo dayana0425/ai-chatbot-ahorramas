@@ -1,7 +1,8 @@
 "use client";
 
-import { Box, Stack, TextField, Button, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
+import { Box, Stack, TextField, Button, MenuItem, Select, FormControl, InputLabel, } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function Home() {
   const getInitialMessages = (language) => {
@@ -21,7 +22,6 @@ export default function Home() {
   const [language, setLanguage] = useState("es");
   const [messages, setMessages] = useState(() => getInitialMessages("es"));
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [conversationStarted, setConversationStarted] = useState(false);
 
   const presetQuestions = {
@@ -42,13 +42,13 @@ export default function Home() {
   const handleLanguageChange = (event) => {
     const selectedLanguage = event.target.value;
     setLanguage(selectedLanguage);
-    setMessages(getInitialMessages(selectedLanguage)); // Update initial message based on selected language
+    setMessages(getInitialMessages(selectedLanguage));
   };
 
   const sendMessage = async () => {
-    if (!message.trim()) return; // Don't send empty messages
+    if (!message.trim()) return;
 
-    setConversationStarted(true); // Mark conversation as started
+    setConversationStarted(true);
     setMessage("");
     setMessages((messages) => [
       ...messages,
@@ -87,12 +87,15 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Error:", error);
+      console.log("Current language:", language);
+    
       setMessages((messages) => [
         ...messages,
         {
           role: "assistant",
-          content:
-            "Lo siento, pero he encontrado un error. Por favor, inténtalo de nuevo más tarde.",
+          content: language === "en" 
+            ? "An error occurred. Please refresh the page and try again." 
+            : "Ocurrió un error. Por favor, actualiza la página y vuelve a intentarlo.",
         },
       ]);
     }
@@ -205,7 +208,7 @@ export default function Home() {
                   },
                 }}
               >
-                {message.content}
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               </Box>
             </Box>
           ))}
