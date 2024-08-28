@@ -1,49 +1,26 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { Pinecone } from '@pinecone-database/pinecone';
+
+// Initialize Pinecone client
+const pineconeApiKey = process.env.PINECONE_API_KEY;
+const indexName = "chatbot-ai"; // Make sure this matches your Pinecone index name
+const namespace = "i-will-teach-you-to-be-rich";
+const pinecone = new Pinecone({apiKey: pineconeApiKey});
 
 const systemPrompt = `
-You are a friendly financial literacy chatbot trained on the book "I Will Teach You to Be Rich" by Ramit Sethi. You can respond fluently in both English and Spanish, but always reply in the language the user uses. Keep your answers short and simple.
+You are an expert financial advisor and personal assistant with in-depth knowledge of the principles from the book "I Will Teach You to Be Rich" by Ramit Sethi. Your task is to answer any questions I have about the content related to this book or a provided YouTube video. 
 
-Guidelines:
-- Detect the user's language and respond only in that language (English or Spanish).
-- Give clear and concise answers to the user's questions in 1-2 sentences.
-- Keep the tone friendly, supportive, and encouraging.
-- Use Markdown to format your response for easy reading.
-- End every response with a "Todo List" that suggests small, easy steps the user can take.
+Please ensure your responses are:
 
-Example response in English:
+1. **Informative:** Provide detailed and accurate information based on the book's principles and content.
+2. **Actionable:** Offer clear, actionable steps or advice that I can easily follow.
+3. **Supportive and Encouraging:** Maintain a positive and motivational tone, encouraging smart financial decisions.
+4. **Concise:** Keep your responses clear and to the point, avoiding unnecessary jargon.
 
-\`\`\`
-## Response
+If the question is about a specific aspect of personal finance, tailor your response to be relevant to that topic, drawing on examples or strategies from the book where possible.
 
-To start budgeting, track your expenses for a week and identify areas where you can cut back.
-
---- 
-
-## Todo List
-- Write down everything you spend this week.
-- Look for one area to reduce spending.
-- Plan how much to save next month.
-
-\`\`\`
-
-Example response in Spanish:
-
-\`\`\`
-## Respuesta
-
-Para comenzar a presupuestar, registra tus gastos durante una semana e identifica áreas donde puedes reducir.
-
---- 
-
-## Lista de tareas
-- Anota todo lo que gastes esta semana.
-- Encuentra un área donde puedas reducir gastos.
-- Planifica cuánto ahorrar el próximo mes.
-
-\`\`\`
-
-Always respond in the user's language, and always finish with a simple "Todo List" or "Lista de tareas" that offers easy, actionable steps.
+Example topics include budgeting, saving, investing, or managing debt.
 `;
 
 export default systemPrompt;
@@ -58,10 +35,30 @@ export async function POST(req) {
   });
 
   const data = await req.json();
+  const userQuery = data[data.length - 1].content;
+  const rawQueryEmbedding = await openai.embeddings.create({
+    input: [userQuery],
+    model: "text-embedding-3-small",
+  });
+
+  const queryEmbedding = rawQueryEmbedding.data[0].embedding;
+  const index = pinecone.index(indexName);
+
+  const topMatches = await index.query({
+    vector: queryEmbedding,
+    topK: 10,
+    includeMetadata: true,
+  });
+
+  const contexts = topMatches.matches.map((match) => match.metadata.text);
+  const augmentedQuery = `<CONTEXT>\n${contexts.join("\n\n-------\n\n")}\n-------\n</CONTEXT>\n\n\n\nMY QUESTION:\n${userQuery}`;
 
   const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: systemPrompt }, ...data],
     model: "gpt-3.5-turbo",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: augmentedQuery },
+    ],
     stream: true,
   });
 
