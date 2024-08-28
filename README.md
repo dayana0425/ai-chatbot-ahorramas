@@ -1,9 +1,12 @@
-# Ahorra Mas: Your Spanish-Speaking Financial Literacy Companion
+# Ahorra Mas: Your Spanish-Speaking Financial Literacy Companion [IN PROGRESS]
 
 Ahorra Mas is a financial literacy AI chatbot tailored for Spanish speakers. It provides an accessible and interactive way to learn the basics of financial literacy, empowering users to manage their finances more effectively. Whether you’re looking to understand budgeting, saving, or investing, Ahorra Mas is here to guide you in your journey to financial freedom, all in your native language.
 
 <br>
 
+----
+## FigJam Requirements & Plan
+https://www.figma.com/board/tx5xk9vayeS771NDfx3i2h/ai-chatbot-plan?node-id=0-1&t=uxZO9BNzkW1PoGe6-1
 ---- 
 
 ## Tech Stack
