@@ -1,10 +1,12 @@
-# Ahorra Mas: Your Spanish-Speaking Financial Literacy Companion [IN PROGRESS]
+# Ahorra Mas: Your Spanish-Speaking Financial Literacy Companion
 
 Ahorra Mas is a financial literacy AI chatbot tailored for Spanish speakers. It provides an accessible and interactive way to learn the basics of financial literacy, empowering users to manage their finances more effectively. Whether you’re looking to understand budgeting, saving, or investing, Ahorra Mas is here to guide you in your journey to financial freedom, all in your native language.
 
 <br>
 
---- 
+## Video Demo
+https://www.loom.com/share/f5482f09e1844c9e80511b3decac6f3f?sid=acaed24e-6a5e-4bb9-9766-a50d7ee093db
+
 
 ## RAG with PDF Book (I Will Teach You To Be Rich By Ramit Sethi)
 https://colab.research.google.com/drive/1NVx_AClKqeU1-UolR1IP2niaUznzhpZc?usp=sharing
@@ -12,15 +14,15 @@ https://colab.research.google.com/drive/1NVx_AClKqeU1-UolR1IP2niaUznzhpZc?usp=sh
 ## FigJam Requirements & Plan
 https://www.figma.com/board/tx5xk9vayeS771NDfx3i2h/ai-chatbot-plan?node-id=0-1&t=uxZO9BNzkW1PoGe6-1
 
----- 
-
 ## Tech Stack
 
-- **Frontend Framework:** [Next.js](https://nextjs.org/)
+- **Frontend Framework:**
   - Next.js was chosen for its powerful features such as server-side rendering, static site generation, and seamless API routes integration, which are essential for building a fast and efficient user interface.
   
-- **AI Integration:** [OpenAI API](https://openai.com/api/)
-  - The app utilizes OpenAI’s API to power the AI chatbot, providing users with intelligent, conversational interactions around financial literacy topics.
+- **AI Integration:** 
+  - OpenAI API: Powers the AI chatbot with intelligent, conversational interactions on financial literacy and creates embeddings for text data.
+	- Pinecone: Stores and retrieves these embeddings for efficient and relevant query matching.
+	- Langchain: Extracts text from PDFs and facilitates the retrieval-augmented generation (RAG) process.
 
 ## Hosting and Infrastructure
 
