@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { Pinecone } from '@pinecone-database/pinecone';
 
-// Initialize Pinecone client
+// initialize pinecone client
 const pineconeApiKey = process.env.PINECONE_API_KEY;
-const indexName = "chatbot-ai"; // Make sure this matches your Pinecone index name
-const namespace = "i-will-teach-you-to-be-rich";
+const indexName = "chatbot-ai"; // Pinecone index name
+const namespace = "i-will-teach-you-to-be-rich"; // Pinecone namespace
 const pinecone = new Pinecone({apiKey: pineconeApiKey});
 
 const systemPrompt = `
@@ -26,33 +26,35 @@ Example topics include budgeting, saving, investing, or managing debt.
 export default systemPrompt;
 
 export async function POST(req) {
+  // initialize OpenAI client
   const apiKey = process.env.OPENAI_API_KEY;
   const projectId = process.env.OPENAI_PROJECT_ID;
-
   const openai = new OpenAI({
     apiKey: apiKey,
     projectId: projectId,
   });
 
   const data = await req.json();
+
+  // open ai query embedding
   const userQuery = data[data.length - 1].content;
   const rawQueryEmbedding = await openai.embeddings.create({
     input: [userQuery],
     model: "text-embedding-3-small",
   });
-
   const queryEmbedding = rawQueryEmbedding.data[0].embedding;
-  const index = pinecone.index(indexName);
 
-  const topMatches = await index.query({
+  // pinecone vector query using query embedding
+  const index = pinecone.index(indexName);
+  const topMatches = await index.namespace(namespace).query({
     vector: queryEmbedding,
     topK: 10,
     includeMetadata: true,
   });
-
   const contexts = topMatches.matches.map((match) => match.metadata.text);
   const augmentedQuery = `<CONTEXT>\n${contexts.join("\n\n-------\n\n")}\n-------\n</CONTEXT>\n\n\n\nMY QUESTION:\n${userQuery}`;
 
+  // open ai chat completion
   const completion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
@@ -62,6 +64,7 @@ export async function POST(req) {
     stream: true,
   });
 
+  // stream response
   const stream = new ReadableStream({
     async start(controller) {
       const encoder = new TextEncoder();
