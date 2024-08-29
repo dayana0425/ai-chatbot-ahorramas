@@ -2,6 +2,11 @@
 
 Ahorra Mas is a financial literacy AI chatbot based on the principles from the book **I Will Teach You to Be Rich By Ramit Sethi**. It helps you figure out what to do with your first paycheck, setting you up for future financial success. 
 
+
+<div style="display: flex; justify-content: center; align-items: center; height: 500vh;">
+  <img src="/project-preview.png" alt="My Image" width="500" />
+</div>
+
 ## Video Demo
 https://www.loom.com/share/f5482f09e1844c9e80511b3decac6f3f?sid=acaed24e-6a5e-4bb9-9766-a50d7ee093db
 
