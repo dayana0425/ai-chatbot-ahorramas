@@ -1,8 +1,6 @@
-# Ahorra Mas: Your Spanish-Speaking Financial Literacy Companion
+# Ahorra Mas: Your Financial Literacy Companion
 
-Ahorra Mas is a financial literacy AI chatbot tailored for Spanish speakers. It provides an accessible and interactive way to learn the basics of financial literacy, empowering users to manage their finances more effectively. Whether you’re looking to understand budgeting, saving, or investing, Ahorra Mas is here to guide you in your journey to financial freedom, all in your native language.
-
-<br>
+Ahorra Mas is a financial literacy AI chatbot based on the principles from the book **I Will Teach You to Be Rich**. It helps you figure out what to do with your first paycheck, setting you up for financial success. 
 
 ## Video Demo
 https://www.loom.com/share/f5482f09e1844c9e80511b3decac6f3f?sid=acaed24e-6a5e-4bb9-9766-a50d7ee093db
@@ -11,7 +9,7 @@ https://www.loom.com/share/f5482f09e1844c9e80511b3decac6f3f?sid=acaed24e-6a5e-4b
 ## RAG with PDF Book (I Will Teach You To Be Rich By Ramit Sethi)
 https://colab.research.google.com/drive/1NVx_AClKqeU1-UolR1IP2niaUznzhpZc?usp=sharing
 
-## FigJam Requirements & Plan
+## FigJam Project Requirements & Plan
 https://www.figma.com/board/tx5xk9vayeS771NDfx3i2h/ai-chatbot-plan?node-id=0-1&t=uxZO9BNzkW1PoGe6-1
 
 ## Tech Stack
