@@ -1,6 +1,15 @@
 "use client";
 
-import { Box, Stack, TextField, Button, MenuItem, Select, FormControl, InputLabel, } from "@mui/material";
+import {
+  Box,
+  Stack,
+  TextField,
+  Button,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -26,16 +35,16 @@ export default function Home() {
 
   const presetQuestions = {
     en: [
-      "How should I prioritize my expenses after getting paid?",
-      "What steps can I take to create an effective budget?",
-      "What are the best ways to start investing for retirement?",
-      "How can I efficiently save for a down payment on a house?",
+      "What's the smartest way to spend my first paycheck?",
+      "How can I create a budget that actually works for me?",
+      "What are the top strategies to kickstart my retirement savings?",
+      "How can I save for a house without sacrificing my lifestyle?",
     ],
     es: [
-      "¿Cómo debo priorizar mis gastos después de que me paguen?",
-      "¿Qué pasos puedo seguir para crear un presupuesto efectivo?",
-      "¿Cuáles son las mejores formas de comenzar a invertir para la jubilación?",
-      "¿Cómo puedo ahorrar de manera eficiente para el pago inicial de una casa?",
+      "¿Cuál es la mejor manera de gastar mi primer sueldo?",
+      "¿Cómo puedo crear un presupuesto que realmente funcione para mí?",
+      "¿Cuáles son las mejores estrategias para iniciar mis ahorros para la jubilación?",
+      "¿Cómo puedo ahorrar para una casa sin sacrificar mi estilo de vida?",
     ],
   };
 
@@ -88,14 +97,15 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
       console.log("Current language:", language);
-    
+
       setMessages((messages) => [
         ...messages,
         {
           role: "assistant",
-          content: language === "en" 
-            ? "An error occurred. Please refresh the page and try again." 
-            : "Ocurrió un error. Por favor, actualiza la página y vuelve a intentarlo.",
+          content:
+            language === "en"
+              ? "An error occurred. Please refresh the page and try again."
+              : "Ocurrió un error. Por favor, actualiza la página y vuelve a intentarlo.",
         },
       ]);
     }
@@ -127,14 +137,14 @@ export default function Home() {
       justifyContent="center"
       alignItems="center"
       sx={{
-        background: "linear-gradient(135deg, #FF5F6D, #FFC371)",
+        background: "linear-gradient(135deg, #5fb2ff, #FFC371)",
         padding: "16px",
       }}
     >
       <Stack
         direction={"column"}
-        width={{ xs: "100%", sm: "90%", md: "500px" }}
-        height={{ xs: "100%", sm: "90%", md: "700px" }}
+        width={{ xs: "100%", sm: "90%", md: "600px", lg: "800px" }}
+        height={{ xs: "100%", sm: "90%", md: "800px", lg: "1000px" }}
         border="1px solid #ccc"
         p={2}
         spacing={3}
@@ -150,18 +160,79 @@ export default function Home() {
           value={language}
           onChange={handleLanguageChange}
           variant="outlined"
-          disabled={conversationStarted} // Disable language selection after the conversation starts
+          disabled={conversationStarted}
           sx={{
-            mb: 2,
-            bgcolor: "#FFFFFF99",
-            backdropFilter: "blur(10px)",
             borderRadius: "8px",
+            backgroundColor: "transparent",
+            "& .MuiInputBase-root": {
+              borderRadius: "8px",
+              backgroundColor: "white",
+              paddingRight: "32px",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#5fb4ff",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#5fb4ff",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#5fb4ff",
+            },
+            "@media (max-width: 600px)": {
+              "& .MuiSelect-select": {
+                padding: "12px 14px",
+                fontSize: "14px",
+              },
+              "& .MuiInputLabel-root": {
+                fontSize: "14px",
+              },
+            },
+          }}
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                borderRadius: "8px",
+                mt: 1,
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                backgroundColor: "white",
+                "& .MuiMenuItem-root": {
+                  padding: "10px 14px",
+                  "&:hover": {
+                    backgroundColor: "#5fb4ff",
+                    color: "white",
+                  },
+                  "&.Mui-selected": {
+                    backgroundColor: "#5fb4ff",
+                    color: "white",
+                  },
+                },
+              },
+            },
           }}
         >
-          <MenuItem value="en">English</MenuItem>
-          <MenuItem value="es">Español</MenuItem>
+          <MenuItem
+            sx={{
+              whiteSpace: "normal",
+              wordBreak: "break-word",
+              fontSize: "14px",
+              padding: "10px 14px",
+            }}
+            value="en"
+          >
+            English
+          </MenuItem>
+          <MenuItem
+            sx={{
+              whiteSpace: "normal",
+              wordBreak: "break-word",
+              fontSize: "14px",
+              padding: "10px 14px",
+            }}
+            value="es"
+          >
+            Español
+          </MenuItem>
         </Select>
-
         <Stack
           direction={"column"}
           spacing={2}
@@ -174,7 +245,7 @@ export default function Home() {
               width: "8px",
             },
             "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#FF5F6D",
+              backgroundColor: "#5fb2ff",
               borderRadius: "8px",
             },
           }}
@@ -203,9 +274,14 @@ export default function Home() {
                   marginRight: 2,
                   marginTop: 2,
                   padding: "24px",
-
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
                   "&:hover": {
                     transform: "scale(1.02)",
+                  },
+                  lineHeight: "1.6",
+                  "& p": {
+                    marginBottom: "16px",
                   },
                 }}
               >
@@ -221,19 +297,27 @@ export default function Home() {
             <InputLabel htmlFor="preset-question">
               {language === "en" ? "Choose a question" : "Elige una pregunta"}
             </InputLabel>
+
             <Select
               label="Choose a question"
-              value=""
+              value={message}
               onChange={(e) => setMessage(e.target.value)}
               sx={{
+                borderRadius: "8px",
+                backgroundColor: "transparent",
                 "& .MuiInputBase-root": {
                   borderRadius: "8px",
-                  backgroundColor: "#FFFFFF99",
-                  backdropFilter: "blur(10px)",
+                  backgroundColor: "white",
                   paddingRight: "32px",
                 },
                 "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#FF5F6D",
+                  borderColor: "#5fb4ff",
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#5fb4ff",
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#5fb4ff",
                 },
                 "@media (max-width: 600px)": {
                   "& .MuiSelect-select": {
@@ -248,10 +332,20 @@ export default function Home() {
               MenuProps={{
                 PaperProps: {
                   sx: {
-                    maxHeight: 200,
-                    "@media (max-width: 600px)": {
-                      width: "100%",
-                      fontSize: "14px",
+                    borderRadius: "8px",
+                    mt: 1,
+                    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "white",
+                    "& .MuiMenuItem-root": {
+                      padding: "10px 14px",
+                      "&:hover": {
+                        backgroundColor: "#5fb4ff",
+                        color: "white",
+                      },
+                      "&.Mui-selected": {
+                        backgroundColor: "#5fb4ff",
+                        color: "white",
+                      },
                     },
                   },
                 },
@@ -296,7 +390,7 @@ export default function Home() {
                 backdropFilter: "blur(10px)",
               },
               "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#FF5F6D",
+                borderColor: "#5fb2ff",
               },
             }}
           />
@@ -304,12 +398,12 @@ export default function Home() {
             variant="contained"
             onClick={sendMessage}
             sx={{
-              backgroundColor: "#FF5F6D",
-              backgroundImage: "linear-gradient(135deg, #FF5F6D, #FFC371)",
+              backgroundColor: "#5fb2ff",
+              backgroundImage: "linear-gradient(135deg, #5fb2ff, #FFC371)",
               color: "white",
               "&:hover": {
-                backgroundColor: "#FF5F6D",
-                backgroundImage: "linear-gradient(135deg, #FFC371, #FF5F6D)",
+                backgroundColor: "#5fb2ff",
+                backgroundImage: "linear-gradient(135deg, #FFC371, #5fb2ff)",
               },
               boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
               borderRadius: "8px",
