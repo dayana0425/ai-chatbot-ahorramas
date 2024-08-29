@@ -17,6 +17,11 @@ https://colab.research.google.com/drive/1NVx_AClKqeU1-UolR1IP2niaUznzhpZc?usp=sh
 https://www.figma.com/board/tx5xk9vayeS771NDfx3i2h/ai-chatbot-plan?node-id=0-1&t=uxZO9BNzkW1PoGe6-1
 
 ## Tech Stack
+
+<div style="display: flex; justify-content: center; align-items: center; height: 500vh;">
+  <img src="/tech-stack-diagram.png" alt="My Image" width="500" />
+</div>
+
 - **Frontend Framework:**
   - Next.js was chosen for its powerful features such as server-side rendering, static site generation, and seamless API routes integration, which are essential for building a fast and efficient user interface.
   
