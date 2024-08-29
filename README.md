@@ -20,7 +20,7 @@ https://www.figma.com/board/tx5xk9vayeS771NDfx3i2h/ai-chatbot-plan?node-id=0-1&t
   - Next.js was chosen for its powerful features such as server-side rendering, static site generation, and seamless API routes integration, which are essential for building a fast and efficient user interface.
   
 - **AI Integration:** 
-  - OpenAI API: Powers the AI chatbot with intelligent, conversational interactions on financial literacy and creates embeddings for text data.
+  	- OpenAI API: Powers the AI chatbot with intelligent, conversational interactions on financial literacy and creates embeddings for text data.
 	- Pinecone: Stores and retrieves these embeddings for efficient and relevant query matching.
 	- Langchain: Extracts text from PDFs and facilitates the retrieval-augmented generation (RAG) process.
 
